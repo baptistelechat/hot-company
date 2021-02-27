@@ -1,6 +1,5 @@
 import React from 'react';
 import { makeStyles } from '@material-ui/core/styles';
-import InputLabel from '@material-ui/core/InputLabel';
 import MenuItem from '@material-ui/core/MenuItem';
 import FormControl from '@material-ui/core/FormControl';
 import Select from '@material-ui/core/Select';
@@ -52,6 +51,7 @@ const SelectProfil = () => {
           <MenuItem value={'Charly'}>Charly</MenuItem>
           <MenuItem value={'Léopold'}>Léopold</MenuItem>
           <MenuItem value={'Can'}>Can</MenuItem>
+          <MenuItem value={'New'}>+ Nouveau profil</MenuItem>
         </Select>
       </FormControl>
     </div>

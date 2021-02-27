@@ -1,17 +1,23 @@
 import React from 'react';
-import { makeStyles } from '@material-ui/core/styles';
-import HotCompanyHeader from './components/hotCompanyHeader'
-import MakeToast from './components/makeToast'
-import SelectProfil from './components/selectProfil'
+import { BrowserRouter, Route, Switch } from 'react-router-dom'
+import { makeStyles } from '@material-ui/core/styles'
+import HotCompanyHeader from './components/HotCompanyHeader'
+import MainPage from './components/pages/MainPage'
+import PageCooking from './components/pages/PageCooking'
+import PageFeedback from './components/pages/PageFeedback'
+import PageNotFound from './components/pages/PageNotFound';
+import PageSettings from './components/pages/PageSettings'
+import PageSettingsProfil from './components/pages/PageSettingsProfil'
 
 const useStyles = makeStyles((theme) => ({
   root: {
-    background: 'linear-gradient(45deg, #ffd222 0%, #e0931f 50%)',
+    background: 'linear-gradient(45deg, #ffd222 10%, #e0931f 75%)',
     height: "100vh",
     width: "100vw",
     textAlign: "center",
     display: "flex",
-    flexDirection: "column"
+    flexDirection: "column",
+    justifyContent: "center"
   },
 }));
 
@@ -21,9 +27,17 @@ function App() {
 
   return (
     <div className={classes.root}>
-      <HotCompanyHeader/>
-      <MakeToast/>
-      <SelectProfil/>
+      <BrowserRouter>
+        <HotCompanyHeader/>
+        <Switch>
+          <Route exact path="/" component={MainPage}/>
+          <Route exact path="/cooking" component={PageCooking}/>
+          <Route exact path="/feedback" component={PageFeedback}/>
+          <Route exact path="/settings" component={PageSettings}/>
+          <Route exact path="/settings/profil" component={PageSettingsProfil}/>
+          <Route path="/" component={PageNotFound}/>
+        </Switch>
+      </BrowserRouter>
     </div>
   );
 }

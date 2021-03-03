@@ -9,7 +9,7 @@ const CookingPage = () => {
     setTimeout(() => {
       history.push("/feedback")
     }, 5000)
-  },[])
+  },[history])
 
   return (
     <div>

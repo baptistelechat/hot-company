@@ -34,7 +34,7 @@ function App() {
           <Route exact path="/cooking" component={PageCooking}/>
           <Route exact path="/feedback" component={PageFeedback}/>
           <Route exact path="/settings" component={PageSettings}/>
-          <Route exact path="/settings/profil" component={PageSettingsProfil}/>
+          <Route exact path="/settings/profilSettings" component={PageSettingsProfil}/>
           <Route path="/" component={PageNotFound}/>
         </Switch>
       </BrowserRouter>

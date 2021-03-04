@@ -31,7 +31,7 @@ const SelectBread = () => {
 
   const classes = useStyles();
   const [selectBread, setSelectBread] = useState('Pain de mie');
-  const [breadList, setBreadList] = useState(["Pain de mie", "Pain au céréales", "Brioche","Fait Maison"])
+  const breadList = ["Pain de mie", "Pain au céréales", "Brioche","Fait Maison"]
 
   const handleChange = (event) => {
     console.log(event.target.value)

@@ -1,6 +1,4 @@
-// REACT
 import React, { useState, useEffect } from "react";
-// MATERIAL UI
 import { makeStyles } from '@material-ui/core/styles';
 import Drawer from '@material-ui/core/Drawer';
 import Divider from '@material-ui/core/Divider';
@@ -9,14 +7,11 @@ import ListItem from '@material-ui/core/ListItem';
 import ListItemIcon from '@material-ui/core/ListItemIcon';
 import ListItemText from '@material-ui/core/ListItemText';
 import IconButton from '@material-ui/core/IconButton';
-// MATERIAL UI ICON
 import MenuIcon from '@material-ui/icons/Menu';
 import GetAppIcon from '@material-ui/icons/GetApp';
 import NavigateBeforeIcon from '@material-ui/icons/NavigateBefore';
-// FONT AWESOME
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faGithub } from '@fortawesome/free-brands-svg-icons';
-// PICTURES
 import logo from '../img/logo.png'
 
 // STYLE
@@ -84,8 +79,8 @@ const HamburgerMenu = () => {
   const classes = useStyles();
 
   const [openDrawer, setOpenDrawer] = useState(false)
-  // const [supportPWA, setSupportPWA] = useState(false);
-  // const [promptInstall, setPromptInstall] = useState(null);
+  const [supportPWA, setSupportPWA] = useState(false);
+  const [promptInstall, setPromptInstall] = useState(null);
 
   const urlBaptiste = 'https://github.com/baptistelechat'
   const urlLeopold = 'https://github.com/LeopoldBriand-bot'
@@ -93,25 +88,25 @@ const HamburgerMenu = () => {
   const urlCharly = 'https://github.com/FoxBandyKoot'
   const urlProject = 'https://github.com/baptistelechat/hot-company'
 
-  // useEffect(() => {
-  //   const handler = e => {
-  //     e.preventDefault();
-  //     setSupportPWA(true);
-  //     setPromptInstall(e);
-  //   };
+  useEffect(() => {
+    const handler = e => {
+      e.preventDefault();
+      setSupportPWA(true);
+      setPromptInstall(e);
+    };
 
-  //   window.addEventListener("beforeinstallprompt", handler);
+    window.addEventListener("beforeinstallprompt", handler);
 
-  //   return () => window.removeEventListener("transitionend", handler);
-  // }, []);
+    return () => window.removeEventListener("transitionend", handler);
+  }, []);
   
-  // const install = (event) => {
-  //   event.preventDefault();
-  //   if (!promptInstall) {
-  //       return
-  //   }
-  //   promptInstall.prompt();
-  // }
+  const install = (event) => {
+    event.preventDefault();
+    if (!promptInstall) {
+        return
+    }
+    promptInstall.prompt();
+  }
 
   const toggleDrawer = (open) => (event) => {
     if (event.type === 'keydown' && (event.key === 'Tab' || event.key === 'Shift')) {
@@ -169,14 +164,6 @@ const HamburgerMenu = () => {
           <img className={classes.logo} src={logo} alt="logo"/>
         </ListItem>
         <List className={classes.list}>
-          {/* {supportPWA ? 
-            (<ListItem button onClick={install}>
-              <ListItemIcon><GetAppIcon/></ListItemIcon>
-              <ListItemText primary={"Installer PWA"} secondary={"Installer Hot Company sur votre appareil"}/> 
-            </ListItem>) 
-            :
-            <div></div>
-          } */}
           <p className={classes.p}>Control your homemade connected toaster !</p>
           <Divider/>
           <ListItem button onClick={() => openLink(urlProject)}>
@@ -184,11 +171,19 @@ const HamburgerMenu = () => {
             <ListItemText primary={"Hot-Company"} secondary={"GitHub Project"}/> 
           </ListItem>
           <Divider/>
-          
           <ListItem>
             <h3>Contact</h3>
           </ListItem>
           {contact()}
+          <Divider/>
+          {supportPWA ? 
+            (<ListItem button onClick={install}>
+              <ListItemIcon><GetAppIcon/></ListItemIcon>
+              <ListItemText primary={"Installer PWA"} secondary={"Installer Hot Company sur votre appareil"}/> 
+            </ListItem>) 
+            :
+            <div></div>
+          }
         </List>
       </Drawer>
     </div>

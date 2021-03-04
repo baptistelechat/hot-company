@@ -6,7 +6,6 @@ import HomeIcon from '@material-ui/icons/Home';
 import RemoveIcon from '@material-ui/icons/Remove';
 import AddIcon from '@material-ui/icons/Add';
 import RestoreIcon from '@material-ui/icons/Restore';
-import Grid from '@material-ui/core/Grid';
 import Fab from '@material-ui/core/Fab';
 
 const useStyles = makeStyles((theme) => ({
@@ -33,16 +32,6 @@ const useStyles = makeStyles((theme) => ({
     flex: '90%',
     [theme.breakpoints.up('sm')]: {
       flex: '50%',
-    },
-  },
-  fab: {
-    marginTop: theme.spacing(1),
-    marginRight: theme.spacing(1),
-    backgroundColor: '#ffca28',
-    textTransform:'lowercase',
-    color: '#000000',
-    '&:hover': {
-      backgroundColor: '#e0931f',
     },
   },
   fab: {

@@ -1,13 +1,16 @@
 import React from 'react';
 import { BrowserRouter, Route, Switch } from 'react-router-dom'
+import { Toaster } from 'react-hot-toast';
 import { makeStyles } from '@material-ui/core/styles'
 import HotCompanyHeader from './components/HotCompanyHeader'
+import HamburgerMenu from './components/HamburgerMenu'
 import MainPage from './components/pages/MainPage'
 import PageCooking from './components/pages/PageCooking'
 import PageFeedback from './components/pages/PageFeedback'
 import PageNotFound from './components/pages/PageNotFound';
 import PageSettings from './components/pages/PageSettings'
-import PageSettingsProfil from './components/pages/PageSettingsProfil'
+import PageSettingsUser from './components/pages/PageSettingsUser'
+import PageSettingsChange from './components/pages/PageSettingsChange'
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -18,7 +21,7 @@ const useStyles = makeStyles((theme) => ({
     display: "flex",
     flexDirection: "column",
     justifyContent: "center"
-  },
+  }
 }));
 
 function App() {
@@ -27,6 +30,11 @@ function App() {
 
   return (
     <div className={classes.root}>
+      <Toaster
+        position="top-right"
+        reverseOrder={false}
+      />
+      <HamburgerMenu className={classes.hamburgerMenu}/>
       <BrowserRouter>
         <HotCompanyHeader/>
         <Switch>
@@ -34,7 +42,8 @@ function App() {
           <Route exact path="/cooking" component={PageCooking}/>
           <Route exact path="/feedback" component={PageFeedback}/>
           <Route exact path="/settings" component={PageSettings}/>
-          <Route exact path="/settings/profilSettings" component={PageSettingsProfil}/>
+          <Route exact path="/settings/:user" component={PageSettingsUser}/>
+          <Route exact path="/settings/:user/:id" component={PageSettingsChange}/>
           <Route path="/" component={PageNotFound}/>
         </Switch>
       </BrowserRouter>

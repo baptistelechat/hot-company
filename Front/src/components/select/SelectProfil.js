@@ -27,14 +27,13 @@ const useStyles = makeStyles((theme) => ({
   }
 }));
 
-const SelectProfil = () => {
+const SelectProfil = ({selectUser, setSelectUser, users}) => {
 
   const classes = useStyles();
-  const [profil, setProfil] = React.useState('Baptiste');
 
   const handleChange = (event) => {
     console.log(event.target.value)
-    setProfil(event.target.value);
+    setSelectUser(event.target.value);
   };
 
   return (
@@ -43,15 +42,13 @@ const SelectProfil = () => {
         <Select
           labelId="simple-select-profile"
           id="simple-select-profil"
-          value={profil}
+          value={selectUser}
           onChange={handleChange}
           className={classes.selectMenu}
         >
-          <MenuItem value={'Baptiste'}>Baptiste</MenuItem>
-          <MenuItem value={'Charly'}>Charly</MenuItem>
-          <MenuItem value={'Léopold'}>Léopold</MenuItem>
-          <MenuItem value={'Can'}>Can</MenuItem>
-          <MenuItem value={'New'}>+ Nouveau profil</MenuItem>
+          {users.map((user) => {
+            return(<MenuItem key={user} value={user}>{user}</MenuItem>)
+          })}
         </Select>
       </FormControl>
     </div>

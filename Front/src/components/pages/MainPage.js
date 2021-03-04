@@ -14,7 +14,7 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-function MainPage() {
+const MainPage = () => {
   
   const classes = useStyles()
   const history = useHistory()

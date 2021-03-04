@@ -1,6 +1,6 @@
 import React from 'react';
 import { makeStyles } from '@material-ui/core/styles';
-import TableSettingsProfil from '../table/TableSettingsProfil'
+import TableSettingsUser from '../table/TableSettingsUser'
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -10,15 +10,15 @@ const useStyles = makeStyles((theme) => ({
   },
 }))
 
-const PageSettingsProfil = () => {
+const PageSettingsUser = () => {
 
   const classes = useStyles();
 
   return (
     <div className={classes.root}>
-      <TableSettingsProfil/>
+      <TableSettingsUser/>
     </div>
   );
 }
 
-export default PageSettingsProfil;
+export default PageSettingsUser;

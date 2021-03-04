@@ -1,6 +1,7 @@
 import React from 'react';
 import { useHistory } from 'react-router-dom'
 import { makeStyles } from '@material-ui/core/styles';
+import toast from 'react-hot-toast';
 import Fab from '@material-ui/core/Fab';
 
 const useStyles = makeStyles((theme) => ({
@@ -21,9 +22,21 @@ const ButtonFeedbackPerfect = () => {
   const classes = useStyles()
   const history = useHistory()
 
+  const sendFeedback = () => {
+    toast.success('Perfect cooked !', {
+      duration: 5000,
+      icon: '🍞',
+      style: {
+        background: '#8bc34a',
+        color: '#000000',
+      }
+    })
+    history.push('/')
+  }
+
   return (
     <div>
-      <Fab variant="extended" className={classes.perfectFab} onClick={() => history.push('/')}>
+      <Fab variant="extended" className={classes.perfectFab} onClick={sendFeedback}>
         Perfect
       </Fab>
     </div>

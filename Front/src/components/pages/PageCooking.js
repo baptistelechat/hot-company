@@ -1,4 +1,5 @@
 import React, { useEffect } from 'react';
+import toast from 'react-hot-toast';
 import { useHistory } from 'react-router-dom'
 
 const CookingPage = () => {
@@ -7,6 +8,17 @@ const CookingPage = () => {
   
   useEffect(() => {
     setTimeout(() => {
+      toast.success('Completed cooking !', {
+        duration: 5000,
+        style: {
+          background: '#ffd222',
+          color: '#000000',
+        },
+        iconTheme: {
+          primary: '#e0931f',
+          secondary: '#000000'
+        },
+      })
       history.push("/feedback")
     }, 5000)
   },[history])

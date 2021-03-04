@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import MenuItem from '@material-ui/core/MenuItem';
 import FormControl from '@material-ui/core/FormControl';
@@ -30,11 +30,12 @@ const useStyles = makeStyles((theme) => ({
 const SelectBread = () => {
 
   const classes = useStyles();
-  const [bread, setBread] = React.useState('Pain de mie');
+  const [selectBread, setSelectBread] = useState('Pain de mie');
+  const [breadList, setBreadList] = useState(["Pain de mie", "Pain au céréales", "Brioche","Fait Maison"])
 
   const handleChange = (event) => {
     console.log(event.target.value)
-    setBread(event.target.value);
+    setSelectBread(event.target.value);
   };
 
   return (
@@ -43,14 +44,13 @@ const SelectBread = () => {
         <Select
           labelId="simple-select-profile"
           id="simple-select-profil"
-          value={bread}
+          value={selectBread}
           onChange={handleChange}
           className={classes.selectMenu}
         >
-          <MenuItem value={'Pain de mie'}>Pain de mie</MenuItem>
-          <MenuItem value={'Pain au céréales'}>Pain au céréales</MenuItem>
-          <MenuItem value={'Brioche'}>Brioche</MenuItem>
-          <MenuItem value={'Fait maison'}>Fait maison</MenuItem>
+          {breadList.map((bread) => {
+            return(<MenuItem key={bread} value={bread}>{bread}</MenuItem>)
+          })}
         </Select>
       </FormControl>
     </div>

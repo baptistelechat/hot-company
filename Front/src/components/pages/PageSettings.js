@@ -1,12 +1,12 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { useHistory } from 'react-router-dom'
 import { makeStyles } from '@material-ui/core/styles';
 import Fab from '@material-ui/core/Fab';
 import IconButton from '@material-ui/core/IconButton';
 import HomeIcon from '@material-ui/icons/Home';
-// import NavigateBeforeIcon from '@material-ui/icons/NavigateBefore';
 import NavigateNextIcon from '@material-ui/icons/NavigateNext';
 import SelectProfil from '../select/SelectProfil'
+import ModalCreateUser from '../modal/ModalCreateUser'
 
 const useStyles = makeStyles((theme) => ({
   btn: {
@@ -24,11 +24,23 @@ const PageSettings = () => {
 
   const classes = useStyles()
   const history = useHistory()
+  const [users, setUsers] = useState(["Baptiste","Charly","Léopold","Can","+ Create user"]);
+  const [selectUser, setSelectUser] = useState("Baptiste");
+  const [openDialog, setOpenDialog] = useState(false)
+
+  const nextPage = () => {
+    if (selectUser !== '+ Create user') {
+      history.push(`/settings/${selectUser}`)
+    } else {
+      setOpenDialog(true)
+    }
+  }
 
   return (
     <div>
-      <SelectProfil/>
-      <Fab variant="extended" className={classes.fab} onClick={() => history.push('/settings/profilSettings')}>
+      <ModalCreateUser openDialog={openDialog} setOpenDialog={setOpenDialog} users={users} setUsers={setUsers} setSelectUser={setSelectUser}/>
+      <SelectProfil users={users} selectUser={selectUser} setSelectUser={setSelectUser}/>
+      <Fab variant="extended" className={classes.fab} onClick={nextPage}>
         Next
         <NavigateNextIcon/>
       </Fab>

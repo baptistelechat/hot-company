@@ -31,20 +31,48 @@ const ModalCreateUser = ({openDialog, setOpenDialog, users, setUsers, setSelectU
   const [name, setName] = useState('')
 
   const handleCloseDialog = () => {
-    setOpenDialog(false);
-    setUsers([name, ...users])
-    setSelectUser(name)
-    toast.success('New profil successfully created !', {
-      duration: 5000,
-      style: {
-        background: '#ffd222',
-        color: '#000000',
-      },
-      iconTheme: {
-        primary: '#e0931f',
-        secondary: '#000000'
-      },
-    })
+    if (/\s/.test(name)) {
+      toast.error("Please, remove whitespaces.", {
+        duration: 5000,
+        style: {
+          background: '#e57373',
+          color: '#FFFFFF',
+        },
+        iconTheme: {
+          primary: '#b71c1c',
+          secondary: '#FFFFFF'
+        },
+      });
+    } else {
+      if (name === "") {
+        toast.error("Invalid submit, input field is empty !", {
+          duration: 5000,
+          style: {
+            background: '#e57373',
+            color: '#FFFFFF',
+          },
+          iconTheme: {
+            primary: '#b71c1c',
+            secondary: '#FFFFFF'
+          },
+        });    
+      } else {
+        setOpenDialog(false);
+        setUsers([name, ...users])
+        setSelectUser(name)
+        toast.success('New profil successfully created !', {
+          duration: 5000,
+          style: {
+            background: '#ffd222',
+            color: '#000000',
+          },
+          iconTheme: {
+            primary: '#e0931f',
+            secondary: '#000000'
+          },
+        })
+      }
+    }
   };
 
   const handleNameChange = (event) => {
@@ -52,20 +80,23 @@ const ModalCreateUser = ({openDialog, setOpenDialog, users, setUsers, setSelectU
   }
 
   return (
-    <Dialog open={openDialog} onClose={handleCloseDialog} aria-labelledby="form-dialog-title">
+    <Dialog open={openDialog} onClose={() => setOpenDialog(false)} aria-labelledby="form-dialog-title">
       <DialogTitle id="form-dialog-title" className={classes.title}>Create user</DialogTitle>
       <DialogContent style={{paddingBottom: '16px'}}>
         <DialogContentText className={classes.dialogContentText}>
           Write her name and submit form.
         </DialogContentText>
           <div>
-            <TextField id="standard-basic" label="Name" className={classes.textField} onChange={handleNameChange}/>
+            <TextField autoFocus id="standard-basic" label="Name" className={classes.textField} onChange={handleNameChange}/>
           </div>
-      </DialogContent>
+      </DialogContent>  
       <DialogActions>
-        <Button onClick={handleCloseDialog} style={{color: '#e0931f'}}>
-          Valider
+        <Button onClick={() => setOpenDialog(false)} style={{color: '#e0931f'}}>
+          Cancel
         </Button>
+        <Button onClick={handleCloseDialog} style={{color: '#e0931f'}}>
+          Submit
+        </Button>   
       </DialogActions>
     </Dialog>
   );

@@ -1,6 +1,7 @@
 {
   "short_name": "Hot Company",
-  "name": "A web application to control a homemade connected toaster",
+  "name": "Hot Company",
+  "description": "A web application to control a homemade connected toaster",
   "icons": [
     {
       "src": "favicon.ico",

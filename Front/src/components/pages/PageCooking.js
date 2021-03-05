@@ -8,7 +8,6 @@ const CookingPage = () => {
   const history = useHistory()
   var currentTimeout;
 
-
   useEffect(() => {
     currentTimeout = setTimeout(() => {
       toast.success('Completed cooking !', {

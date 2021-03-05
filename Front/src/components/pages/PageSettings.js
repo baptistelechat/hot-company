@@ -3,10 +3,11 @@ import { useHistory } from 'react-router-dom'
 import { makeStyles } from '@material-ui/core/styles';
 import Fab from '@material-ui/core/Fab';
 import IconButton from '@material-ui/core/IconButton';
-import HomeIcon from '@material-ui/icons/Home';
 import NavigateNextIcon from '@material-ui/icons/NavigateNext';
 import SelectProfil from '../select/SelectProfil'
 import ModalCreateUser from '../modal/ModalCreateUser'
+
+import ButtonGoHome from '../button/floatingButton/ButtonGoHome'
 
 const useStyles = makeStyles((theme) => ({
   btn: {
@@ -44,9 +45,7 @@ const PageSettings = () => {
         Next
         <NavigateNextIcon/>
       </Fab>
-      <IconButton aria-label="settings" className={classes.btn} onClick={() => history.push('/')}>
-        <HomeIcon fontSize="large"/>
-      </IconButton>
+      <ButtonGoHome/>
     </div>
   );
 }

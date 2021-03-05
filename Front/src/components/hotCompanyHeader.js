@@ -5,10 +5,13 @@ import { makeStyles } from "@material-ui/core/styles";
 
 const useStyles = makeStyles((theme) => ({
   logo: {
-    height: "30vh",
+    height: "25vh",
+    [theme.breakpoints.up('sm')]: {
+      height: "28vh",
+    },
   },
   h1: {
-    marginBottom: theme.spacing(4),
+    marginBottom: theme.spacing(3),
   },
 }));
 

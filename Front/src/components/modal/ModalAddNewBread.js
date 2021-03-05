@@ -50,7 +50,6 @@ const AddNewBread = ({addNewBread}) => {
   const [isSubmit, setIsSubmit] = useState(false);
 
   const isNumber = new RegExp("[0-9]*")
-  const noWhiteSpace = new RegExp("/^\S*$/")  
   
   const handleOpenDialog = () => {
     setOpenDialog(true)

@@ -9,9 +9,15 @@ import ArrowBackIcon from '@material-ui/icons/ArrowBack';
 const useStyles = makeStyles((theme) => ({
   btn_back: {
     position: 'fixed',
-    bottom: theme.spacing(2),
-    right: theme.spacing(10),
-    zIndex: 100
+    bottom: theme.spacing(7),
+    right: theme.spacing(1),
+    zIndex: 100,
+    [theme.breakpoints.up('sm')]: {
+      position: 'fixed',
+      bottom: theme.spacing(2),
+      right: theme.spacing(10),
+      zIndex: 100
+    },
   },
 }));
 

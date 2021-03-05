@@ -122,7 +122,7 @@ const TableSettingsUser = () => {
 
   return (
     <div>
-      <h3>{user}</h3>
+      <h3 style={{marginTop:0}}>{user}</h3>
       <TableContainer className={classes.container} component={Paper}>
         <Table stickyHeader className={classes.table} aria-label="simple table">
           <TableHead>

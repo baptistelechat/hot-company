@@ -43,40 +43,77 @@ const AddNewBread = ({addNewBread}) => {
 
   const [openDialog, setOpenDialog] = useState(false)
   const [breadType, setBreadType] = useState('')
-  const [cookingTime, setCookingTime] = useState(-1)
+  const [cookingTime, setCookingTime] = useState('')
 
-  const [isNumber, setIsNumber] = useState(false);
+  const [isCookingTime, setIsCookingTime] = useState(false);
+  const [isBreadType, setIsBreadType] = useState(false);
   const [isSubmit, setIsSubmit] = useState(false);
-  const [breadTypeNoWhiteSpace, setBreadTypeNoWhiteSpace] = useState(false);
-  const [CookingTimeNoWhiteSpace, setCookingTimeNoWhiteSpace] = useState(false);
 
-  const numberRegex = new RegExp("[0-9]*")
-
-  // const isNumber = (testValue) => {
-  //   Boolean(regexNickname.exec(test))
-  // } 
-  
+  const isNumber = new RegExp("[0-9]*")
+  const noWhiteSpace = new RegExp("/^\S*$/")  
   
   const handleOpenDialog = () => {
     setOpenDialog(true)
   };
 
   const handleCloseDialog = () => {
-    if (/\s/.test(breadType) || /\s/.test(cookingTime)) {
-      toast.error("Please, remove whitespaces.", {
+    setIsCookingTime(!(/\s/.test(cookingTime)) && (Boolean(isNumber.exec(cookingTime)) && cookingTime > 0) && cookingTime !== "")
+    setIsBreadType(!(/\s/.test(breadType)) && breadType !== "")
+
+    // console.log('-------------------------')
+    // console.log(!(/\s/.test(breadType)))
+    // console.log(breadType !== "")
+    // console.log(!(/\s/.test(breadType)) && breadType !== "")
+    // console.log('------------------')
+    // console.log(!(/\s/.test(cookingTime)))
+    // console.log(Boolean(isNumber.exec(cookingTime)) && cookingTime > 0)
+    // console.log(cookingTime !== "")
+    // console.log(!(/\s/.test(cookingTime)) && (Boolean(isNumber.exec(cookingTime)) && cookingTime > 0) && cookingTime !== "")
+    // console.log('------------------')
+    
+    if ((!(/\s/.test(breadType)) && breadType !== "") && (!(/\s/.test(cookingTime)) && (Boolean(isNumber.exec(cookingTime)) && cookingTime > 0) && cookingTime !== "")) {
+      setOpenDialog(false);
+      addNewBread(breadType, cookingTime)
+      setBreadType('')
+      setCookingTime(-1)
+      toast.success('A new bread was created !', {
         duration: 5000,
         style: {
-          background: '#e57373',
-          color: '#FFFFFF',
+          background: '#ffd222',
+          color: '#000000',
         },
         iconTheme: {
-          primary: '#b71c1c',
-          secondary: '#FFFFFF'
+          primary: '#e0931f',
+          secondary: '#000000'
         },
-      });
+      })
     } else {
-      if (breadType === "" || cookingTime === -1) {
-        toast.error("Invalid submit, input fields are empty !", {
+      setIsSubmit(true)
+
+      const cookingTimeMessage = () =>{
+        if (cookingTime === "") {
+          return 'Cooking Time is empty !'
+        } else if (/\s/.test(cookingTime)) {
+          return 'Cooking Time contain white space !'
+        } else if (!(Boolean(isNumber.exec(cookingTime)) && cookingTime>0)) {
+          return 'Cooking Time is not a number !'
+        } else {
+          return null
+        }
+      }
+
+      const breadTypeMessage = () => {
+        if (breadType === "") {
+          return 'Bread Type is empty !'
+        } else if (/\s/.test(breadType)) {
+          return 'Bread Type contain white space !'
+        } else {
+          return null
+        }
+      }
+
+      if (cookingTimeMessage() !== null) {
+        toast.error(cookingTimeMessage(), {
           duration: 5000,
           style: {
             background: '#e57373',
@@ -86,26 +123,24 @@ const AddNewBread = ({addNewBread}) => {
             primary: '#b71c1c',
             secondary: '#FFFFFF'
           },
-        });
-      } else {
-        setOpenDialog(false);
-        addNewBread(breadType, cookingTime)
-        setBreadType('')
-        setCookingTime(-1)
-        toast.success('A new bread was created !', {
+        })
+      }
+
+      if (breadTypeMessage() !== null) {
+        toast.error(breadTypeMessage(), {
           duration: 5000,
           style: {
-            background: '#ffd222',
-            color: '#000000',
+            background: '#e57373',
+            color: '#FFFFFF',
           },
           iconTheme: {
-            primary: '#e0931f',
-            secondary: '#000000'
+            primary: '#b71c1c',
+            secondary: '#FFFFFF'
           },
         })
       }
     }
-  };
+  }
 
   const handleBreadTypeChange = (event) => {
     setBreadType(event.currentTarget.value)
@@ -128,16 +163,27 @@ const AddNewBread = ({addNewBread}) => {
           </DialogContentText>
             <div>
               <TextField
-                id="standard-basic"
+                required
+                error={isSubmit && !isBreadType}
+                helperText={isSubmit && !isBreadType ? ('An error occurred for this text field, look the notifications !') : null}
+                name="breadType"
+                id="breadType"
                 label="Bread Type"
                 className={classes.textField}
                 onChange={handleBreadTypeChange}
-                error={isSubmit && breadType !== "" || isSubmit && breadTypeNoWhiteSpace}
-                helperText={isSubmit && breadType !== "" ? ('Is empty !') : isSubmit && breadTypeNoWhiteSpace ? ('Contain white space !') : null}
               />
             </div>
             <div>
-              <TextField id="standard-basic" label="Cooking Time" className={classes.textField} onChange={handleCookingTimeChange}/>
+              <TextField
+                required
+                error={isSubmit && !isCookingTime}
+                helperText={isSubmit && !isCookingTime ? ('An error occurred for this text field, look the notifications !') : null}
+                name="cookingTime"
+                id="cookingTime"
+                label="Cooking Time"
+                className={classes.textField}
+                onChange={handleCookingTimeChange}
+              />
             </div>
         </DialogContent>
         <DialogActions>

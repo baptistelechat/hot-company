@@ -29,23 +29,43 @@ const ModalCreateUser = ({openDialog, setOpenDialog, users, setUsers, setSelectU
 
   const classes = useStyles();
   const [name, setName] = useState('')
+  const [isName, setIsName] = useState(false);
+  const [isSubmit, setIsSubmit] = useState(false);
 
   const handleCloseDialog = () => {
-    if (/\s/.test(name)) {
-      toast.error("Please, remove whitespaces.", {
+
+    setIsName(!(/\s/.test(name)) && name !== "")
+
+    if (!(/\s/.test(name)) && name !== "") {
+      setOpenDialog(false);
+      setUsers([name, ...users])
+      setSelectUser(name)
+      toast.success('New Profil successfully created !', {
         duration: 5000,
         style: {
-          background: '#e57373',
-          color: '#FFFFFF',
+          background: '#ffd222',
+          color: '#000000',
         },
         iconTheme: {
-          primary: '#b71c1c',
-          secondary: '#FFFFFF'
+          primary: '#e0931f',
+          secondary: '#000000'
         },
-      });
+      })
     } else {
-      if (name === "") {
-        toast.error("Invalid submit, input field is empty !", {
+      setIsSubmit(true)
+
+      const nameMessage = () => {
+        if (name === "") {
+          return 'User name is empty !'
+        } else if (/\s/.test(name)) {
+          return 'User Name contain white space !'
+        } else {
+          return null
+        }
+      }
+
+      if (nameMessage() !== null) {
+        toast.error(nameMessage(), {
           duration: 5000,
           style: {
             background: '#e57373',
@@ -55,25 +75,10 @@ const ModalCreateUser = ({openDialog, setOpenDialog, users, setUsers, setSelectU
             primary: '#b71c1c',
             secondary: '#FFFFFF'
           },
-        });    
-      } else {
-        setOpenDialog(false);
-        setUsers([name, ...users])
-        setSelectUser(name)
-        toast.success('New profil successfully created !', {
-          duration: 5000,
-          style: {
-            background: '#ffd222',
-            color: '#000000',
-          },
-          iconTheme: {
-            primary: '#e0931f',
-            secondary: '#000000'
-          },
         })
       }
     }
-  };
+  }
 
   const handleNameChange = (event) => {
     setName(event.currentTarget.value)
@@ -87,7 +92,16 @@ const ModalCreateUser = ({openDialog, setOpenDialog, users, setUsers, setSelectU
           Write her name and submit form.
         </DialogContentText>
           <div>
-            <TextField autoFocus id="standard-basic" label="Name" className={classes.textField} onChange={handleNameChange}/>
+            <TextField
+              autoFocus
+              required
+              error={isSubmit && !isName}
+              helperText={isSubmit && !isName ? ('An error occurred for this text field, look the notifications !') : null}id="name"
+              label="Name"
+              name="name"
+              className={classes.textField}
+              onChange={handleNameChange}
+            />
           </div>
       </DialogContent>  
       <DialogActions>

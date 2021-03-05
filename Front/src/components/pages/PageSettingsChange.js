@@ -61,7 +61,6 @@ const PageSettingsChange = () => {
 
   return (
     <div>
-      {console.log(location)}
       <ButtonGoBack/>
       <ButtonGoHome/>
       <div style={{display: 'flex'}}>

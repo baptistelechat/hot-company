@@ -21,11 +21,12 @@ const MainPage = () => {
 
   return (
     <div>
-      <MakeToast/>
       <SelectBread/>
+      <MakeToast/>
       <IconButton aria-label="settings" className={classes.btn} onClick={() => history.push('/settings')}>
         <SettingsIcon fontSize="large"/>
       </IconButton>
+      
     </div>
   );
 }

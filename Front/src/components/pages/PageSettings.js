@@ -2,7 +2,6 @@ import React, { useState } from 'react';
 import { useHistory } from 'react-router-dom'
 import { makeStyles } from '@material-ui/core/styles';
 import Fab from '@material-ui/core/Fab';
-import IconButton from '@material-ui/core/IconButton';
 import NavigateNextIcon from '@material-ui/icons/NavigateNext';
 import SelectProfil from '../select/SelectProfil'
 import ModalCreateUser from '../modal/ModalCreateUser'
@@ -10,15 +9,17 @@ import ModalCreateUser from '../modal/ModalCreateUser'
 import ButtonGoHome from '../button/floatingButton/ButtonGoHome'
 
 const useStyles = makeStyles((theme) => ({
+  fab: {
+    paddingRight: theme.spacing(4),
+    paddingLeft: theme.spacing(4),
+    minWidth: 200,
+    maxWidth: 200
+  },
   btn: {
     position: 'fixed',
     bottom: theme.spacing(2),
     right: theme.spacing(2)
-  },
-  fab: {
-    paddingRight: theme.spacing(2),
-    paddingLeft: theme.spacing(4),
-  },
+  }
 }));
 
 const PageSettings = () => {

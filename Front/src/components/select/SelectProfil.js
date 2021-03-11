@@ -6,8 +6,9 @@ import Select from '@material-ui/core/Select';
 
 const useStyles = makeStyles((theme) => ({
   formControl: {
-    marginBottom: theme.spacing(4),
-    minWidth: 120,
+    margin: theme.spacing(4),
+    minWidth: 200,
+    maxWidth: 200,
   },
   selectMenu: {
     fontSize: '22px',

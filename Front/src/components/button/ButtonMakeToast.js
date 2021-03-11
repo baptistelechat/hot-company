@@ -9,6 +9,8 @@ const useStyles = makeStyles((theme) => ({
   fab: {
     paddingRight: theme.spacing(4),
     paddingLeft: theme.spacing(4),
+    minWidth: 200,
+    maxWidth: 200
   },
   fontAwesomeIcon: {
     fontSize: '32px',

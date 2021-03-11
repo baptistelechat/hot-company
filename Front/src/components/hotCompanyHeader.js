@@ -35,6 +35,7 @@ const HotCompanyHeader = () => {
   return (
     <div className={"header"}>
       <img
+        id="mainLogo"
         src={logo}
         className={classes.logo}
         alt="logo"

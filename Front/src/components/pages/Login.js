@@ -42,7 +42,6 @@ const Login = () => {
       </div>
       <div>
         <TextField
-          autoFocus
           required
           color="secondary"
           label="Password"

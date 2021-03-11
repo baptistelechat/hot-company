@@ -132,7 +132,7 @@ const HamburgerMenu = () => {
         </ListItem>
         <ListItem button onClick={() => openLink(urlLeopold)}>
           <FontAwesomeIcon className={classes.fontAwesomeIcon} icon={faGithub}/>
-          <ListItemText primary={"@LeopoldBriand-bot"} secondary={"Léopold Briand"}/> 
+          <ListItemText primary={"@LeopoldBriand-bot"} secondary={"Léopold BRIAND"}/> 
         </ListItem>
         <ListItem button onClick={() => openLink(urlCan)}>
           <FontAwesomeIcon className={classes.fontAwesomeIcon} icon={faGithub}/>

@@ -163,6 +163,7 @@ const AddNewBread = ({addNewBread}) => {
             <div>
               <TextField
                 required
+                color="secondary"
                 error={isSubmit && !isBreadType}
                 helperText={isSubmit && !isBreadType ? ('An error occurred for this text field, look the notifications !') : null}
                 name="breadType"
@@ -175,6 +176,7 @@ const AddNewBread = ({addNewBread}) => {
             <div>
               <TextField
                 required
+                color="secondary"
                 error={isSubmit && !isCookingTime}
                 helperText={isSubmit && !isCookingTime ? ('An error occurred for this text field, look the notifications !') : null}
                 name="cookingTime"

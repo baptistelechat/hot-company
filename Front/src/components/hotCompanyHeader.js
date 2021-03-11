@@ -20,7 +20,7 @@ const HotCompanyHeader = () => {
   const history = useHistory();
   const location = useLocation();
 
-  var exceptedPath = ["/", "/cooking", "/feedback"];
+  var exceptedPath = ["/", "/cooking", "/feedback", "/login"];
 
   const isInExceptedPath = (value) => {
     return exceptedPath.includes(value);

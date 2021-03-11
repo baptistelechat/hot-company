@@ -1,7 +1,7 @@
 import React from 'react';
 import { BrowserRouter, Route, Switch } from 'react-router-dom'
 import { Toaster } from 'react-hot-toast';
-import { makeStyles } from '@material-ui/core/styles'
+import { makeStyles, createMuiTheme, ThemeProvider } from '@material-ui/core/styles';
 import HotCompanyHeader from './components/HotCompanyHeader'
 import HamburgerMenu from './components/HamburgerMenu'
 import MainPage from './components/pages/MainPage'
@@ -11,6 +11,7 @@ import PageNotFound from './components/pages/PageNotFound';
 import PageSettings from './components/pages/PageSettings'
 import PageSettingsUser from './components/pages/PageSettingsUser'
 import PageSettingsChange from './components/pages/PageSettingsChange'
+import Login from './components/pages/Login';
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -28,26 +29,40 @@ function App() {
 
   const classes = useStyles()
 
+  const muiTheme = createMuiTheme({
+    palette: {
+      primary: {
+        main: '#e0931f'
+      },
+      secondary: {
+        main: '#000000'
+      }
+    },
+  });
+
   return (
-    <div className={classes.root}>
-      <Toaster
-        position="top-right"
-        reverseOrder={false}
-      />
-      <HamburgerMenu className={classes.hamburgerMenu}/>
-      <BrowserRouter>
-        <HotCompanyHeader/>
-        <Switch>
-          <Route exact path="/" component={MainPage}/>
-          <Route exact path="/cooking" component={PageCooking}/>
-          <Route exact path="/feedback" component={PageFeedback}/>
-          <Route exact path="/settings" component={PageSettings}/>
-          <Route exact path="/settings/:user" component={PageSettingsUser}/>
-          <Route exact path="/settings/:user/:id" component={PageSettingsChange}/>
-          <Route path="/" component={PageNotFound}/>
-        </Switch>
-      </BrowserRouter>
-    </div>
+    <ThemeProvider theme={muiTheme}>
+      <div className={classes.root}>
+        <Toaster
+          position="top-right"
+          reverseOrder={false}
+        />
+        <HamburgerMenu className={classes.hamburgerMenu}/>
+        <BrowserRouter>
+          <HotCompanyHeader/>
+          <Switch>
+            <Route exact path="/" component={MainPage}/>
+            <Route exact path="/connect" component={Login}/>
+            <Route exact path="/cooking" component={PageCooking}/>
+            <Route exact path="/feedback" component={PageFeedback}/>
+            <Route exact path="/settings" component={PageSettings}/>
+            <Route exact path="/settings/:user" component={PageSettingsUser}/>
+            <Route exact path="/settings/:user/:id" component={PageSettingsChange}/>
+            <Route path="/" component={PageNotFound}/>
+          </Switch>
+        </BrowserRouter>
+      </div>
+    </ThemeProvider>
   );
 }
 

@@ -95,6 +95,7 @@ const ModalCreateUser = ({openDialog, setOpenDialog, users, setUsers, setSelectU
             <TextField
               autoFocus
               required
+              color="secondary"
               error={isSubmit && !isName}
               helperText={isSubmit && !isName ? ('An error occurred for this text field, look the notifications !') : null}id="name"
               label="Name"

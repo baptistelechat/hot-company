@@ -9,9 +9,6 @@ const useStyles = makeStyles((theme) => ({
     marginBottom: theme.spacing(4),
     minWidth: 120,
   },
-  selectEmpty: {
-    marginTop: theme.spacing(2),
-  },
   selectMenu: {
     fontSize: '22px',
     color: theme.palette.text.primary,

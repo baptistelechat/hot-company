@@ -5,7 +5,6 @@ import Fab from '@material-ui/core/Fab';
 import NavigateNextIcon from '@material-ui/icons/NavigateNext';
 import SelectProfil from '../select/SelectProfil'
 import ModalCreateUser from '../modal/ModalCreateUser'
-
 import ButtonGoHome from '../button/floatingButton/ButtonGoHome'
 
 const useStyles = makeStyles((theme) => ({

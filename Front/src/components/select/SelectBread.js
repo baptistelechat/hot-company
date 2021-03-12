@@ -32,7 +32,6 @@ const SelectBread = () => {
   const breadList = ["Pain de mie", "Pain au céréales", "Brioche","Fait Maison"]
 
   const handleChange = (event) => {
-    console.log(event.target.value)
     setSelectBread(event.target.value);
   };
 

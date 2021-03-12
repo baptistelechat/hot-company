@@ -1,8 +1,8 @@
 import React from 'react';
 import { useHistory } from 'react-router-dom'
-import { makeStyles } from '@material-ui/core/styles';
-import IconButton from '@material-ui/core/IconButton';
-import SettingsIcon from '@material-ui/icons/Settings';
+import { makeStyles } from '@material-ui/core/styles'
+import IconButton from '@material-ui/core/IconButton'
+import SettingsIcon from '@material-ui/icons/Settings'
 import MakeToast from '../button/ButtonMakeToast'
 import SelectBread from '../select/SelectBread'
 

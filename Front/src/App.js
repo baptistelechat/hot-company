@@ -3,7 +3,6 @@ import { BrowserRouter, Route, Switch } from 'react-router-dom'
 import { Toaster } from 'react-hot-toast';
 import { makeStyles, createMuiTheme, ThemeProvider } from '@material-ui/core/styles';
 import HotCompanyHeader from './components/HotCompanyHeader'
-import HamburgerMenu from './components/HamburgerMenu'
 import MainPage from './components/pages/MainPage'
 import PageCooking from './components/pages/PageCooking'
 import PageFeedback from './components/pages/PageFeedback'

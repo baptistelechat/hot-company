@@ -7,15 +7,9 @@ import HomeIcon from '@material-ui/icons/Home';
 const useStyles = makeStyles((theme) => ({
   btn_home: {
     position: 'fixed',
-    bottom: theme.spacing(1),
-    right: theme.spacing(1),
+    bottom: theme.spacing(2),
+    right: theme.spacing(2),
     zIndex: 100,
-    [theme.breakpoints.up('sm')]: {
-      position: 'fixed',
-      bottom: theme.spacing(2),
-      right: theme.spacing(2),
-      zIndex: 100,
-    },
   }
 }));
 

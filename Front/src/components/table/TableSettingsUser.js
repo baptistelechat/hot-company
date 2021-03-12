@@ -18,9 +18,15 @@ const useStyles = makeStyles((theme) => ({
     width: "50vw",
   },
   container: {
-    maxHeight: "45vh",
-    [theme.breakpoints.up("sm")]: {
+    maxHeight: "100vh",
+    [theme.breakpoints.down("lg")]: {
+      maxHeight: "60vh",
+    },
+    [theme.breakpoints.down("md")]: {
       maxHeight: "50vh",
+    },
+    [theme.breakpoints.down("sm")]: {
+      maxHeight: "35vh",
     },
   },
 }));
@@ -70,7 +76,6 @@ const TableSettingsUser = () => {
   };
 
   const addNewBread = (breadType, cookingTime) => {
-    console.log(rows);
     let id = rows.length;
     const data = {
       id: id,
@@ -88,12 +93,16 @@ const TableSettingsUser = () => {
 
   const generateRows = () => {
     if (rows.length > 0) {
+
     return rows.map((row) => (
         <StyledTableRow hover key={row.breadType} className={classes.tableRow}>
+          
           <StyledTableCell component="th" scope="row">
             {row.breadType}
           </StyledTableCell>
+          
           <StyledTableCell align="left">{row.cookingTime}</StyledTableCell>
+          
           <StyledTableCell align="center">
             <IconButton
               aria-label="settings"

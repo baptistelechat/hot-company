@@ -9,44 +9,31 @@ const useStyles = makeStyles((theme) => ({
     margin: theme.spacing(4),
     minWidth: 120,
   },
-  selectMenu: {
-    fontSize: '22px',
-    color: theme.palette.text.primary,
-    '&:before': {
-      borderColor: theme.palette.text.primary,
-    },
-    '&:after': {
-      borderColor: theme.palette.text.primary,
-    }
-  },
-  inputLabel: {
-    color: theme.palette.text.primary,
-  }
 }));
 
-const SelectBread = () => {
+const SelectWifiSecurity = ({selectSecurity, setSelectSecurity}) => {
 
   const classes = useStyles();
-  const [selectBread, setSelectBread] = useState('Pain de mie');
-  const breadList = ["Pain de mie", "Pain au céréales", "Brioche","Fait Maison"]
+  const securityList = ["None", "WEP", "WPA", "WPA2", "WPA3"]
 
   const handleChange = (event) => {
     console.log(event.target.value)
-    setSelectBread(event.target.value);
+    setSelectSecurity(event.target.value);
   };
 
   return (
     <div>
       <FormControl className={classes.formControl}>
         <Select
+          color="secondary"
           labelId="simple-select-profile"
           id="simple-select-profil"
-          value={selectBread}
+          value={selectSecurity}
           onChange={handleChange}
           className={classes.selectMenu}
         >
-          {breadList.map((bread) => {
-            return(<MenuItem key={bread} value={bread}>{bread}</MenuItem>)
+          {securityList.map((security) => {
+            return(<MenuItem key={security} value={security}>{security}</MenuItem>)
           })}
         </Select>
       </FormControl>
@@ -54,4 +41,4 @@ const SelectBread = () => {
   );
 }
 
-export default SelectBread;
+export default SelectWifiSecurity;

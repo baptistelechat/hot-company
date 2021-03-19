@@ -1,0 +1,18 @@
+configuration:
+  name: back
+  path: /home/leopold/Bureau/cours/IOT/hot-company/Back
+  language: TypeScript
+  databases:
+    - MariaDB (SQL)
+  databasesInfos:
+    mongo: {}
+    mariadb:
+      databaseName: hot
+      rootPassword: hot
+      userAccount: hot
+      userPassword: hot
+      address: mariadb@mariadb
+  options:
+    - Docker
+exposed:
+  routes: ["User", "Bread", "BreadType"]

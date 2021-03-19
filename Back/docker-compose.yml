@@ -1,0 +1,38 @@
+# ============================================
+# PRODUCTION docker-compose configuration file
+# ============================================
+
+version: "3.1"
+
+services:
+  mariadb:
+    image: mariadb
+    restart: always
+    ports:
+      - 3306:3306
+    environment:
+      MYSQL_ROOT_PASSWORD: hot
+      MYSQL_DATABASE: hot
+      MYSQL_USER: hot
+      MYSQL_PASSWORD: hot
+    networks:
+      - data
+
+  adminer:
+    image: adminer
+    restart: always
+    ports:
+      - 8080:8080
+    networks:
+      - data
+
+  api:
+    build: ./
+    container_name: back
+    ports:
+      - 3000:3000
+    networks:
+      - data
+
+networks:
+  data:

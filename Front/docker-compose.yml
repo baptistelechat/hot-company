@@ -1,0 +1,18 @@
+# ============================================
+# PRODUCTION docker-compose configuration file
+# ============================================
+
+version: "3.1"
+
+services:
+  client:
+    build: ./
+    container_name: client
+    ports:
+      - 80:80
+    networks:
+      - back_data
+
+networks:
+  back_data:
+    external: true

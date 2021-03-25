@@ -1,7 +1,5 @@
 import React, { useState } from 'react';
 import { makeStyles } from '@material-ui/core/styles';
-import toast from 'react-hot-toast';
-import Button from '@material-ui/core/Button'
 import TextField from '@material-ui/core/TextField';
 import SelectWifiSecurity from '../select/SelectWifiSecurity'
 import ButtonLoginWifi from '../button/ButtonLoginWifi'

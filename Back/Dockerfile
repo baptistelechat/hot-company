@@ -1,4 +1,4 @@
-FROM node:10.20.1-alpine3.9
+FROM node:13.12.0-alpine
 
 RUN mkdir -p /srv/api 
 

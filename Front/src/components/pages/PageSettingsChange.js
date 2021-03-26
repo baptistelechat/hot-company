@@ -1,10 +1,11 @@
 import React, { useState } from 'react';
-import { useLocation, useParams } from 'react-router-dom'
+import { useLocation } from 'react-router-dom'
 import { makeStyles } from '@material-ui/core/styles';
 import RemoveIcon from '@material-ui/icons/Remove';
 import AddIcon from '@material-ui/icons/Add';
 import RestoreIcon from '@material-ui/icons/Restore';
 import Fab from '@material-ui/core/Fab';
+import { connect } from 'react-redux'
 
 import ButtonGoHome from '../button//floatingButton/ButtonGoHome'
 import ButtonGoBack from '../button/floatingButton/ButtonGoBack'
@@ -50,33 +51,31 @@ const useStyles = makeStyles((theme) => ({
   }
 }));
 
-const PageSettingsChange = () => {
+const PageSettingsChange = ({currentUser, currentBread}) => {
   
   const classes = useStyles()
   const location = useLocation()
-  const { user } = useParams();
 
-  const [cookingTime, setCookingTime] = useState(parseInt(location.state.cookingTime))
+  const [cookingTime, setCookingTime] = useState(currentBread.cookingTime)
 
   return (
     <div>
+      {console.log(currentBread)}
       <ButtonGoBack/>
       <ButtonGoHome/>
-      <h3 style={{marginTop:0, marginBottom:0}}>{user}</h3>
+      <h3 style={{marginTop:0, marginBottom:0}}>{currentUser}</h3>
       <div style={{display: 'flex'}}>
         <div className={classes.externalColumn}></div>
           <div className={classes.dataColumn}>
               <div style={{display: 'flex'}}>
                 <div style={{flex: '45%'}}>
-                  <h3 className={classes.h3}>Last Cooking :</h3>
                   <h3 className={classes.h3}>Bread Type :</h3>
                   <h3 className={classes.h3}>Cooking Time :</h3>
                 </div>
                 <div style={{flex: '55%'}}>
-                  <h3 className={classes.h3}>{location.state.lastCooking}</h3>
-                  <h3 className={classes.h3}>{location.state.breadType}</h3>
+                  <h3 className={classes.h3}>{currentBread.breadType}</h3>
                   <div>
-                    <Fab size="small" color="primary" aria-label="add" className={classes.fab} onClick={() => setCookingTime(cookingTime-1)}>
+                    <Fab size="small" color="primary" aria-label="add" className={classes.fab} onClick={() => setCookingTime(currentBread.cookingTime-1000)}>
                       <RemoveIcon/>
                     </Fab>
                     <Fab
@@ -85,11 +84,11 @@ const PageSettingsChange = () => {
                       color="primary"
                       aria-label="add"
                       className={classes.fab}
-                    >{cookingTime}s</Fab>
-                    <Fab size="small" color="primary" aria-label="add" className={classes.fab} onClick={() => setCookingTime(cookingTime+1)}>
+                    >{currentBread.cookingTime/1000}s</Fab>
+                    <Fab size="small" color="primary" aria-label="add" className={classes.fab} onClick={() => setCookingTime(currentBread.cookingTime+1000)}>
                       <AddIcon/>
                     </Fab>
-                    <Fab size="small" color="primary" aria-label="add" className={classes.fab} onClick={() => setCookingTime(parseInt(location.state.cookingTime))}>
+                    <Fab size="small" color="primary" aria-label="add" className={classes.fab} onClick={() => setCookingTime(currentBread.defaultCookingTime)}>
                       <RestoreIcon/>
                     </Fab>
                   </div>
@@ -102,4 +101,11 @@ const PageSettingsChange = () => {
   );
 }
 
-export default PageSettingsChange;
+const mapStateToProps = (state, ownProps) => {
+  return {
+    currentBread: state.currentBread.bread,
+    curentUser: state.currentBread.user
+  }
+}
+
+export default connect(mapStateToProps)(PageSettingsChange);

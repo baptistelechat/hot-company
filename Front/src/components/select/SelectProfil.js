@@ -1,8 +1,11 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import MenuItem from '@material-ui/core/MenuItem';
 import FormControl from '@material-ui/core/FormControl';
 import Select from '@material-ui/core/Select';
+import { connect } from 'react-redux'
+import { usersApiCall } from '../../redux/users/actionUsers'
+import { setCurrentUser } from '../../redux/currentUser/actionCurrentUser'
 
 const useStyles = makeStyles((theme) => ({
   formControl: {
@@ -25,13 +28,41 @@ const useStyles = makeStyles((theme) => ({
   }
 }));
 
-const SelectProfil = ({selectUser, setSelectUser, users}) => {
+const SelectProfil = ({setCurrentUser, usersApiCall}) => {
 
   const classes = useStyles();
 
-  const handleChange = (event) => {
-    console.log(event.target.value)
-    setSelectUser(event.target.value);
+  const users = [
+    {
+      "id":0,
+      "name":"Baptiste"
+    },
+    {
+      "id":1,
+      "name":"Léopold"
+    },
+    {
+      "id":2,
+      "name":"Charly"
+    },
+    {
+      "id":3,
+      "name":"Can"
+    },
+    {
+      "id":4,
+      "name":"+ Create user"
+    },
+  ]
+  // TODO Toggle mocked data to API
+  // const users = usersApiCall()
+  const [value, setValue] = useState('Baptiste');
+
+  const handleChange = (index) => {
+    const data = users[index]
+    console.log(data)
+    setCurrentUser(data)
+    setValue(data.name)
   };
 
   return (
@@ -40,12 +71,11 @@ const SelectProfil = ({selectUser, setSelectUser, users}) => {
         <Select
           labelId="simple-select-profile"
           id="simple-select-profil"
-          value={selectUser}
-          onChange={handleChange}
+          value={value}
           className={classes.selectMenu}
         >
-          {users.map((user) => {
-            return(<MenuItem key={user} value={user}>{user}</MenuItem>)
+          {users.map((user, index) => {
+            return(<MenuItem key={index} value={user.name} onClick={()=> handleChange(index)}>{user.name}</MenuItem>)
           })}
         </Select>
       </FormControl>
@@ -53,4 +83,22 @@ const SelectProfil = ({selectUser, setSelectUser, users}) => {
   );
 }
 
-export default SelectProfil;
+const mapStateToProps = (state, ownProps) => {
+  return {
+    // users: state.users.users,
+    // currentUser: state.currentUser.user,
+  }
+}
+
+const mapDispatchToProps = (dispatch, ownProps) => {
+  return {
+    usersApiCall: () => {
+      dispatch(usersApiCall())
+    },
+    setCurrentUser: (user) => {
+      dispatch(setCurrentUser(user))
+    }
+  }
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(SelectProfil)

@@ -11,20 +11,36 @@ import PageSettings from './components/pages/PageSettings'
 import PageSettingsUser from './components/pages/PageSettingsUser'
 import PageSettingsChange from './components/pages/PageSettingsChange'
 import Login from './components/pages/Login';
+import { connect } from 'react-redux'
 
 const useStyles = makeStyles((theme) => ({
   root: {
     background: 'linear-gradient(45deg, #ffd222 10%, #e0931f 75%)',
+    // background: 'linear-gradient(45deg, #ee7752, #e73c7e, #23a6d5, #23d5ab)',
+    // backgroundSize: "650% 650%",
+    // animation: "$gradient 40s ease infinite",
     height: "100vh",
     width: "100vw",
     textAlign: "center",
     display: "flex",
     flexDirection: "column",
     justifyContent: "center"
-  }
+  },
+  
+  // "@keyframes gradient":{
+  //   "0%": {
+  //     backgroundPosition: "0% 50%"
+  //   },
+  //   "50%": {
+  //     backgroundPosition: "100% 50%"
+  //   },
+  //   "100%": {
+  //     backgroundPosition: "0% 50%"
+  //   }
+  // }
 }));
 
-function App() {
+function App({currentUser, currentBread}) {
 
   const classes = useStyles()
 
@@ -38,6 +54,8 @@ function App() {
       }
     },
   });
+
+  
 
   return (
     <ThemeProvider theme={muiTheme}>
@@ -75,4 +93,11 @@ function App() {
   );
 }
 
-export default App;
+const mapStateToProps = (state, ownProps) => {
+  return {
+    currentUser: state.currentUser.user,
+    currentBread: state.currentUser.bread,
+  }
+}
+
+export default connect(mapStateToProps)(App);

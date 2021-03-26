@@ -23,6 +23,8 @@ const ButtonMakeToast = () => {
   const classes = useStyles()
   const history = useHistory()
 
+  // TODO Test if waiting time is equal with cookingTime
+
   return (
     <Fab variant="extended" onClick={() => history.push("/cooking")} className={classes.fab}>
       <FontAwesomeIcon className={classes.fontAwesomeIcon} icon={faBreadSlice}/>

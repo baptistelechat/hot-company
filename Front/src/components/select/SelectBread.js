@@ -3,6 +3,9 @@ import { makeStyles } from '@material-ui/core/styles';
 import MenuItem from '@material-ui/core/MenuItem';
 import FormControl from '@material-ui/core/FormControl';
 import Select from '@material-ui/core/Select';
+import { connect } from 'react-redux'
+import { breadsApiCall } from '../../redux/breads/actionBreads'
+import { setCurrentBread } from '../../redux/currentBread/actionCurrentBread'
 
 const useStyles = makeStyles((theme) => ({
   formControl: {
@@ -25,14 +28,20 @@ const useStyles = makeStyles((theme) => ({
   }
 }));
 
-const SelectBread = () => {
+const SelectBread = ({currentUser, setCurrentBread, breadsApiCall}) => {
 
   const classes = useStyles();
-  const [selectBread, setSelectBread] = useState('Pain de mie');
-  const breadList = ["Pain de mie", "Pain au céréales", "Brioche","Fait Maison"]
+  const breads = ["Pain de mie", "Pain au céréales", "Brioche","Fait Maison"]
+  // TODO Toggle mocked data to API
+  // const breads = breadsApiCall(currentUser)
+  const [value, setValue] = useState('Pain de mie');
 
-  const handleChange = (event) => {
-    setSelectBread(event.target.value);
+
+  const handleChange = (index) => {
+    console.log(breads[index])
+    setCurrentBread(breads[index])
+    //TODO Add .breadType after breads[index] for setValue
+    setValue(breads[index])
   };
 
   return (
@@ -41,12 +50,11 @@ const SelectBread = () => {
         <Select
           labelId="simple-select-profile"
           id="simple-select-profil"
-          value={selectBread}
-          onChange={handleChange}
+          value={value}
           className={classes.selectMenu}
         >
-          {breadList.map((bread) => {
-            return(<MenuItem key={bread} value={bread}>{bread}</MenuItem>)
+          {breads.map((bread, index) => {
+            return(<MenuItem key={index} value={bread} onClick={()=> handleChange(index)}>{bread}</MenuItem>)
           })}
         </Select>
       </FormControl>
@@ -54,4 +62,22 @@ const SelectBread = () => {
   );
 }
 
-export default SelectBread;
+const mapStateToProps = (state, ownProps) => {
+  return {
+    currentUser: state.currentUser.user
+  }
+}
+
+const mapDispatchToProps = (dispatch, ownProps) => {
+  return {
+    breadsApiCall: (user) => {
+      dispatch(breadsApiCall(user))
+    },
+    setCurrentBread: (bread) => {
+      dispatch(setCurrentBread(bread))
+    }
+  }
+}
+
+
+export default connect(mapStateToProps, mapDispatchToProps)(SelectBread);

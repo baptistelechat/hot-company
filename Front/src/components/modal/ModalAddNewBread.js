@@ -10,6 +10,8 @@ import Button from '@material-ui/core/Button'
 import TextField from '@material-ui/core/TextField';
 import Fab from '@material-ui/core/Fab';
 import AddIcon from '@material-ui/icons/Add';
+import axios from 'axios';
+import { connect } from 'react-redux'
 
 const useStyles = makeStyles((theme) => ({
   title: {
@@ -23,9 +25,6 @@ const useStyles = makeStyles((theme) => ({
     background: 'rgba(0,0,0,0)'
   },
   fab: {
-    // position: 'fixed',
-    // bottom: theme.spacing(2),
-    // right: theme.spacing(2),
     backgroundColor: '#ffca28',
     color: '#000000',
     '&:hover': {
@@ -37,7 +36,7 @@ const useStyles = makeStyles((theme) => ({
   }
 }));
 
-const AddNewBread = ({addNewBread}) => {
+const AddNewBread = ({currentUser}) => {
 
   const classes = useStyles();
 
@@ -58,34 +57,49 @@ const AddNewBread = ({addNewBread}) => {
   const handleCloseDialog = () => {
     setIsCookingTime(!(/\s/.test(cookingTime)) && (Boolean(isNumber.exec(cookingTime)) && cookingTime > 0) && cookingTime !== "")
     setIsBreadType(!(/\s/.test(breadType)) && breadType !== "")
-
-    // console.log('-------------------------')
-    // console.log(!(/\s/.test(breadType)))
-    // console.log(breadType !== "")
-    // console.log(!(/\s/.test(breadType)) && breadType !== "")
-    // console.log('------------------')
-    // console.log(!(/\s/.test(cookingTime)))
-    // console.log(Boolean(isNumber.exec(cookingTime)) && cookingTime > 0)
-    // console.log(cookingTime !== "")
-    // console.log(!(/\s/.test(cookingTime)) && (Boolean(isNumber.exec(cookingTime)) && cookingTime > 0) && cookingTime !== "")
-    // console.log('------------------')
     
+    // TODO Test if new User is create
     if ((!(/\s/.test(breadType)) && breadType !== "") && (!(/\s/.test(cookingTime)) && (Boolean(isNumber.exec(cookingTime)) && cookingTime > 0) && cookingTime !== "")) {
-      setOpenDialog(false);
-      addNewBread(breadType, cookingTime)
-      setBreadType('')
-      setCookingTime(-1)
-      toast.success('A new bread was created !', {
-        duration: 5000,
-        style: {
-          background: '#ffd222',
-          color: '#000000',
-        },
-        iconTheme: {
-          primary: '#e0931f',
-          secondary: '#000000'
-        },
-      })
+      axios.post(process.env.REACT_APP_API_URL_BREADS, { 
+        "defaultCookingTime": cookingTime*1000,
+        "userId": currentUser.id,
+        "breadType": breadType,
+        "cookingTime": cookingTime*1000
+       })
+       .then(res => {
+        console.log(res);
+        console.log(res.data);
+        if (res.status === 200) {
+          setOpenDialog(false);
+          setBreadType('')
+          setCookingTime(-1)
+          toast.success('A new bread was created !', {
+            duration: 5000,
+            style: {
+              background: '#ffd222',
+              color: '#000000',
+            },
+            iconTheme: {
+              primary: '#e0931f',
+              secondary: '#000000'
+            },
+          })
+        } else {
+          console.log(res);
+          console.log(res.data);
+          toast.success('Error return by the server, please try again or visit error log. !', {
+            duration: 5000,
+            style: {
+              background: '#e57373',
+              color: '#FFFFFF',
+            },
+            iconTheme: {
+              primary: '#b71c1c',
+              secondary: '#FFFFFF'
+            },
+          })
+        }
+       })
     } else {
       setIsSubmit(true)
 
@@ -181,7 +195,7 @@ const AddNewBread = ({addNewBread}) => {
                 helperText={isSubmit && !isCookingTime ? ('An error occurred for this text field, look the notifications !') : null}
                 name="cookingTime"
                 id="cookingTime"
-                label="Cooking Time"
+                label="Cooking Time (sec)"
                 className={classes.textField}
                 onChange={handleCookingTimeChange}
               />
@@ -200,4 +214,10 @@ const AddNewBread = ({addNewBread}) => {
   );
 }
 
-export default AddNewBread;
+const mapStateToProps = (state, ownProps) => {
+  return {
+    currentUser: state.currentUser.user
+  }
+}
+
+export default connect(mapStateToProps)(AddNewBread);

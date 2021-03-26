@@ -18,6 +18,8 @@ const ButtonStopCooking = ({stopHandler}) => {
 
   const classes = useStyles()
 
+  //TODO Test if button stop cooking process
+
   return (
     <Fab variant="extended" className={classes.fab} onClick={stopHandler}>
       <CancelIcon className={classes.icon}/>

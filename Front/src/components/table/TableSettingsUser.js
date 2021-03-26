@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { useHistory, useParams } from "react-router-dom";
+import { useHistory } from "react-router-dom";
 import { withStyles, makeStyles } from "@material-ui/core/styles";
 import Table from "@material-ui/core/Table";
 import TableBody from "@material-ui/core/TableBody";
@@ -11,7 +11,10 @@ import Paper from "@material-ui/core/Paper";
 import IconButton from "@material-ui/core/IconButton";
 import DeleteForeverIcon from "@material-ui/icons/DeleteForever";
 import NavigateNextIcon from "@material-ui/icons/NavigateNext";
+import { connect } from 'react-redux'
 import ModalAddNewBread from "../modal/ModalAddNewBread";
+import {breadsApiCall} from '../../redux/breads/actionBreads'
+import { setCurrentBread } from "../../redux/currentBread/actionCurrentBread";
 
 const useStyles = makeStyles((theme) => ({
   table: {
@@ -48,43 +51,33 @@ const StyledTableRow = withStyles((theme) => ({
   },
 }))(TableRow);
 
-const TableSettingsUser = () => {
+const TableSettingsUser = ({currentUser, breadsApiCall, setCurrentBread}) => {
   const classes = useStyles();
   const history = useHistory();
-  const { user } = useParams();
+  // TODO Toggle mocked data to API
+  // const [rows, setRows] = useState([breadsApiCall(currentUser)]);
   const [rows, setRows] = useState([
     {
       id: 0,
       breadType: "Pain de mie",
       lastCooking: "04/03/2021",
-      cookingTime: 120,
+      cookingTime: 120000,
     },
   ]);
 
-  const today = () => {
-    const today = new Date();
-    let d = today.getDate();
-    let m = today.getMonth() + 1;
-    let y = today.getFullYear();
-    if (d < 10) {
-      d = "0" + d;
-    }
-    if (m < 10) {
-      m = "0" + m;
-    }
-    return `${d}/${m}/${y}`;
-  };
-
-  const addNewBread = (breadType, cookingTime) => {
-    let id = rows.length;
-    const data = {
-      id: id,
-      breadType: breadType,
-      lastCooking: today(),
-      cookingTime: cookingTime,
-    };
-    setRows([...rows, data]);
-  };
+  // const today = () => {
+  //   const today = new Date();
+  //   let d = today.getDate();
+  //   let m = today.getMonth() + 1;
+  //   let y = today.getFullYear();
+  //   if (d < 10) {
+  //     d = "0" + d;
+  //   }
+  //   if (m < 10) {
+  //     m = "0" + m;
+  //   }
+  //   return `${d}/${m}/${y}`;
+  // };
 
   const deleteBread = (bread) => {
     let tmpRows = rows.filter(item => item !== bread)
@@ -101,20 +94,15 @@ const TableSettingsUser = () => {
             {row.breadType}
           </StyledTableCell>
           
-          <StyledTableCell align="left">{row.cookingTime}</StyledTableCell>
+          <StyledTableCell align="left">{row.cookingTime/1000}</StyledTableCell>
           
           <StyledTableCell align="center">
             <IconButton
               aria-label="settings"
-              onClick={() =>
-                history.push({
-                  pathname: `/settings/${user}/${row.id}`,
-                  state: {
-                    breadType: row.breadType,
-                    lastCooking: today(),
-                    cookingTime: row.cookingTime,
-                  },
-                })
+              onClick={() => {
+                  setCurrentBread(row)
+                  history.push(`/settings/${currentUser.name}/${row.id}`)
+                }
               }
             >
               <NavigateNextIcon fontSize="medium" />
@@ -131,7 +119,7 @@ const TableSettingsUser = () => {
 
   return (
     <div>
-      <h3 style={{marginTop:0}}>{user}</h3>
+      <h3 style={{marginTop:0}}>{currentUser.name}</h3>
       <TableContainer className={classes.container} component={Paper}>
         <Table stickyHeader className={classes.table} aria-label="simple table">
           <TableHead>
@@ -139,7 +127,7 @@ const TableSettingsUser = () => {
               <StyledTableCell align="left">Bread Type</StyledTableCell>
               <StyledTableCell align="left">Cooking Time</StyledTableCell>
               <StyledTableCell align="center">
-                <ModalAddNewBread addNewBread={addNewBread} />
+                <ModalAddNewBread/>
               </StyledTableCell>
             </TableRow>
           </TableHead>
@@ -149,4 +137,22 @@ const TableSettingsUser = () => {
     </div>
   );
 };
-export default TableSettingsUser;
+
+const mapStateToProps = (state, ownProps) => {
+  return {
+    currentUser: state.currentUser.user,
+  }
+}
+
+const mapDispatchToProps = (dispatch, ownProps) => {
+  return {
+    breadsApiCall: (user) => {
+      dispatch(breadsApiCall(user))
+    },
+    setCurrentBread: (bread) => {
+      dispatch(setCurrentBread(bread))
+    },
+  }
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(TableSettingsUser);

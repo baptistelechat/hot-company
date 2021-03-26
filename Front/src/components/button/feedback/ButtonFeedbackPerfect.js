@@ -23,6 +23,7 @@ const ButtonFeedbackPerfect = () => {
   const history = useHistory()
 
   const sendFeedback = () => {
+    // TODO Test if cookingTime didn't change
     toast.success('Perfect cooked !', {
       duration: 5000,
       icon: '🍞',

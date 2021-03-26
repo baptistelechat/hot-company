@@ -2,8 +2,9 @@ import React, { useEffect } from 'react';
 import toast from 'react-hot-toast';
 import { useHistory } from 'react-router-dom'
 import ButtonStopCooking from '../button/ButtonStopCooking'
+import { connect } from 'react-redux'
 
-const CookingPage = () => {
+const CookingPage = ({currentBread}) => {
 
   const history = useHistory()
   var currentTimeout;
@@ -22,6 +23,8 @@ const CookingPage = () => {
         },
       })
       history.push("/feedback")
+    //TODO: replace 5000 ms by the cooking time of selected bread
+    // }, currentBread.cookingTime)
     }, 5000)
   },[history])
 
@@ -50,4 +53,10 @@ const CookingPage = () => {
   );
 }
 
-export default CookingPage;
+const mapStateToProps = (state, ownProps) => {
+  return {
+    currentBread: state.currentBread
+  }
+}
+
+export default connect(mapStateToProps)(CookingPage);
